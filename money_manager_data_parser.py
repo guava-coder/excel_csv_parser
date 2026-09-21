@@ -1,7 +1,7 @@
 import pandas as pd
 
 data_frame = pd.read_excel(
-    io="C:/Users/ericw/workspace/excel_csv_parser/data/財務管家_2026-9-20.xlsx",
+    io="mm_data.xlsx",
 )
 # print(data_frame)
 # print(data_frame.columns[0])
@@ -25,6 +25,6 @@ custom_dict = (
     .to_dict()
 )
 cd_keys = list(custom_dict.keys())
-print(cd_keys[-1])
-print(custom_dict[cd_keys[-1]])
-
+print("latest data: ", custom_dict[cd_keys[-1]])
+print()
+print("data: ", custom_dict)
