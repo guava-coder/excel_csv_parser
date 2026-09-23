@@ -1,2 +1,6 @@
 data/
+.pytest_cache/
+__pycache__/
+.venv/
+.vscode/
 .prettierrc
