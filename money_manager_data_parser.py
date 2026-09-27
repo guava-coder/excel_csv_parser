@@ -10,7 +10,6 @@ class Record:
     amount: int
     income_expenses: str
     type: str
-    sub_type: str
     info: str
 
 
@@ -45,27 +44,30 @@ def find_time_column(df_keys: pd.Index) -> Column:
     return find_column(probable_s=proba_time, keys=df_keys)
 
 
+proba_keys = [
+    "資產",
+    "類別",
+    "內容",
+    "收入/支出",
+    "備忘錄",
+    "金額",
+    "貨幣",
+]
+
+
+def get_custom_dict(data_frame: pd.DataFrame, keys: pd.Index):
+    _dict = {}
+    for k in proba_keys:
+        col = find_column(probable_s=k, keys=keys)
+        _dict[k] = data_frame.values.tolist()[0][col.index]
+
+    return _dict
+
+
 def data_frame_to_custom_dict(data_frame: pd.DataFrame):
-    proba_keys = [
-        "資產",
-        "類別",
-        "內容",
-        "收入/支出",
-        "備忘錄",
-        "金額",
-        "貨幣",
-    ]
     df_keys = data_frame.keys()
     col_time = find_time_column(df_keys)
     df_keys = df_keys.delete(col_time.index)
-
-    def get_custom_dict(data_frame:pd.DataFrame, df_keys:pd.Index):
-        _dict = {}
-        for k in proba_keys:
-            col = find_column(probable_s=k, keys=df_keys)
-            _dict[k] = data_frame.values.tolist()[0][col.index]
-            print(col,":", _dict[k])
-        return _dict
 
     return (
         data_frame.set_index(col_time.name)
